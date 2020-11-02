@@ -1,3 +1,10 @@
+import { TodoList } from "./todo-list";
+
+export interface ItemsOfList {
+  list?: TodoList;
+  items?: TodoItem[];
+}
+
 export interface TodoItem {
   id: number;
   content: string;

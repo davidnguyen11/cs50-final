@@ -4,7 +4,7 @@ import { APIResponse } from '../../../types/response';
 import { HttpStatusCode } from '../../../utils/status-code';
 import { TodoItem } from '../../v1/models/todo-item';
 
-export async function updateContentTodoItem(db: DB, userId: string, todoListId: string, args: Args) {
+export async function updateContentTodoItem(db: DB, userId: string, todoListId: string, itemId: string, args: Args) {
   const response: APIResponse<TodoItem> = {
     status: 'fetching',
   };
@@ -16,10 +16,12 @@ export async function updateContentTodoItem(db: DB, userId: string, todoListId: 
         UPDATE todo_items i
         SET content = $1, updated_at = NOW()
         FROM todo_lists l
-        WHERE i.id = $2 AND i.is_done = False AND i.is_delete = False AND l.user_id = $3 AND i.todo_list_id = l.id AND l.is_delete = False
-        RETURNING *;
+        WHERE i.id = $2 AND l.id = $3 AND
+          i.is_delete = False AND l.user_id = $4 AND
+          i.todo_list_id = l.id AND l.is_delete = False
+        RETURNING i.content, i.id;
       `,
-      values: [content, todoListId, userId],
+      values: [content, itemId, todoListId, userId],
     };
     const data = await db.query(query);
 

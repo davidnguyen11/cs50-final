@@ -4,15 +4,12 @@ import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { theme } from '../theme';
-import { AppBar, Box, IconButton, Toolbar, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import { AuthProvider } from '../contexts/auth';
 
 const styles = () => ({
   root: {
     flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
@@ -20,7 +17,14 @@ const styles = () => ({
 });
 
 class MyApp extends App<Props> {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      token: undefined,
+    };
+  }
+
+  public componentDidMount() {
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles && jssStyles.parentElement) {
@@ -28,8 +32,8 @@ class MyApp extends App<Props> {
     }
   }
 
-  render() {
-    const { Component, pageProps, classes } = this.props;
+  public render() {
+    const { Component, pageProps } = this.props;
 
     return (
       <React.Fragment>
@@ -40,21 +44,9 @@ class MyApp extends App<Props> {
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-
-          <header className={classes.root}>
-            <AppBar position="static">
-              <Toolbar>
-                <IconButton className={classes.menuButton} edge="start" color="inherit" aria-label="menu"></IconButton>
-                <Typography variant="h6" className={classes.title}>
-                  devtool
-                </Typography>
-              </Toolbar>
-            </AppBar>
-          </header>
-
-          <Box mt={2}>
+          <AuthProvider>
             <Component {...pageProps} />
-          </Box>
+          </AuthProvider>
         </ThemeProvider>
       </React.Fragment>
     );
@@ -66,7 +58,6 @@ export default withStyles(styles)(MyApp);
 interface Props {
   classes: {
     root: string;
-    menuButton: string;
     title: string;
   };
 }

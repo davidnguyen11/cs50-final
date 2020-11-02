@@ -14,7 +14,8 @@ export async function deleteTodoList(db: DB, todoListId: string) {
       text: `
         UPDATE todo_lists
         SET is_delete = True
-        WHERE id = $1 AND is_delete = False RETURNING *;
+        WHERE id = $1 AND is_delete = False
+        RETURNING *;
       `,
       values: [todoListId],
     };

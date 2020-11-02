@@ -15,6 +15,7 @@ export async function getTodoLists(db: DB, userId: string) {
         SELECT id, title
         FROM todo_lists
         WHERE user_id = $1 AND is_delete = False
+        ORDER BY id DESC
       `,
       values: [userId],
     };

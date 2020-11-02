@@ -81,30 +81,33 @@ router.post('/:todoListId/todo-item', checkToken, async (req: Request, res: Resp
   res.send(response);
 });
 
-router.patch('/:todoListId/todo-item', checkToken, async (req: Request, res: Response, next: NextFunction) => {
+router.patch('/:todoListId/todo-item/:itemId', checkToken, async (req: Request, res: Response, next: NextFunction) => {
   const { userId } = get(res, 'auth');
   const todoListId = req.params.todoListId;
-  const response = await updateContentTodoItem(db, userId, todoListId, req.body);
+  const itemId = req.params.itemId;
+  const response = await updateContentTodoItem(db, userId, todoListId, itemId, req.body);
   if (response.error) {
     res.status(response.statusCode);
   }
   res.send(response);
 });
 
-router.patch('/:todoListId/todo-item/complete', checkToken, async (req: Request, res: Response, next: NextFunction) => {
+router.patch('/:todoListId/todo-item/:itemId/complete', checkToken, async (req: Request, res: Response, next: NextFunction) => {
   const { userId } = get(res, 'auth');
   const todoListId = req.params.todoListId;
-  const response = await completeItem(db, userId, todoListId);
+  const itemId = req.params.itemId;
+  const response = await completeItem(db, userId, todoListId, itemId, req.body);
   if (response.error) {
     res.status(response.statusCode);
   }
   res.send(response);
 });
 
-router.delete('/:todoListId/todo-item', checkToken, async (req: Request, res: Response, next: NextFunction) => {
+router.delete('/:todoListId/todo-item/:itemId', checkToken, async (req: Request, res: Response, next: NextFunction) => {
   const { userId } = get(res, 'auth');
   const todoListId = req.params.todoListId;
-  const response = await deleteItem(db, userId, todoListId);
+  const itemId = req.params.itemId;
+  const response = await deleteItem(db, userId, todoListId, itemId);
   if (response.error) {
     res.status(response.statusCode);
   }
@@ -119,6 +122,10 @@ router.get('/:todoListId/todo-items', checkToken, async (req: Request, res: Resp
     res.status(response.statusCode);
   }
   res.send(response);
+});
+
+router.get('/yo', (req, res) => {
+  res.send({ greeting: 'hello' });
 });
 
 export { router };
