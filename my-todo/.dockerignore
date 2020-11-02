@@ -1,0 +1,31 @@
+# dependencies
+node_modules
+
+# nextjs
+.next
+
+# git
+.githooks
+.git
+.gitignore
+
+# logs
+npm-debug.log
+
+# docker
+Dockerfile*
+docker-compose*
+.dockerignore
+
+# document
+README.md
+
+# license
+LICENSE
+
+# ide
+.vscode
+
+# development
+.prettier*
+nodemon.json
