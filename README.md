@@ -1,6 +1,7 @@
 # my todo list
 
 The web application to manage daily basis. It contains 4 pages:
+
 - **Login:** allow users to log in and enjoy the service.
 - **Register:** allow users to register to be a member of the service.
 - **Home page:** allow users to see all of user's todo lists.
@@ -8,13 +9,75 @@ The web application to manage daily basis. It contains 4 pages:
 
 The web app is responsive, user can use desktop browser or mobile browser to enjoy the User Experience.
 
+## How to start
+
+**api**
+
+Make sure you have [docker](https://www.docker.com/) installed.
+
+Run commands:
+
+_start & create database_
+
+```bash
+docker-compose up -d
+```
+
+_development_
+
+```bash
+npm i
+```
+
+```bash
+npm run dev
+```
+
+_production_
+
+```bash
+npm i
+```
+
+```bash
+npm run build
+```
+
+```bash
+npm start
+```
+
+**my-todo**
+
+Run commands
+
+_development_
+
+```bash
+npm i
+```
+
+```bash
+npm run dev
+```
+
+_production_
+
+```bash
+npm i
+```
+
+```bash
+npm start
+```
+
 ## Features
+
 ### Login
 
 **login UI**
 
 <img width="427" alt="login" src="https://user-images.githubusercontent.com/6290720/98501791-90cfb380-2293-11eb-8557-94aa0a88c1dd.png">
-
 
 **login with error**
 
